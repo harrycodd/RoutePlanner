@@ -1,0 +1,396 @@
+.map-panel {
+  background: #081522;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-panel);
+  min-height: 500px;
+  overflow: hidden;
+  position: relative;
+}
+
+.route-map {
+  height: 520px;
+  min-height: 420px;
+  width: 100%;
+}
+
+.leaflet-container {
+  background: #081522;
+  color: #dbe5f4;
+  font: 13px var(--font-sans);
+  overflow: hidden;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * Local Leaflet layout fallback. If the CDN stylesheet is slow or blocked,
+ * these rules keep tiles, markers, overlays, and controls correctly placed.
+ */
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.leaflet-container img.leaflet-tile,
+.leaflet-container .leaflet-marker-icon,
+.leaflet-container .leaflet-marker-shadow {
+  max-height: none !important;
+  max-width: none !important;
+}
+
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.leaflet-map-pane,
+.leaflet-pane,
+.leaflet-tile-container {
+  height: 100%;
+  width: 100%;
+}
+
+.leaflet-map-pane {
+  z-index: 400;
+}
+
+.leaflet-tile-pane {
+  z-index: 200;
+}
+
+.leaflet-overlay-pane {
+  z-index: 400;
+}
+
+.leaflet-shadow-pane {
+  z-index: 500;
+}
+
+.leaflet-marker-pane {
+  z-index: 600;
+}
+
+.leaflet-tooltip-pane {
+  z-index: 650;
+}
+
+.leaflet-popup-pane {
+  z-index: 700;
+}
+
+.leaflet-map-pane canvas {
+  z-index: 100;
+}
+
+.leaflet-map-pane svg {
+  z-index: 200;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+  pointer-events: none;
+  position: absolute;
+  z-index: 1000;
+}
+
+.leaflet-top {
+  top: 0;
+}
+
+.leaflet-right {
+  right: 0;
+}
+
+.leaflet-bottom {
+  bottom: 0;
+}
+
+.leaflet-left {
+  left: 0;
+}
+
+.leaflet-control {
+  clear: both;
+  float: left;
+  pointer-events: auto;
+  position: relative;
+  z-index: 800;
+}
+
+.leaflet-right .leaflet-control {
+  float: right;
+}
+
+.leaflet-top .leaflet-control {
+  margin-top: 10px;
+}
+
+.leaflet-bottom .leaflet-control {
+  margin-bottom: 10px;
+}
+
+.leaflet-left .leaflet-control {
+  margin-left: 10px;
+}
+
+.leaflet-right .leaflet-control {
+  margin-right: 10px;
+}
+
+.leaflet-interactive {
+  cursor: pointer;
+}
+
+.leaflet-grab {
+  cursor: grab;
+}
+
+.leaflet-dragging .leaflet-grab {
+  cursor: grabbing;
+}
+
+.leaflet-control-attribution {
+  background: rgba(5, 13, 22, 0.76);
+  color: #c6d0dd;
+  line-height: 1.4;
+  padding: 2px 6px;
+}
+
+.leaflet-control-attribution a {
+  color: #87bfff;
+}
+
+.leaflet-control-zoom {
+  border: 1px solid rgba(154, 176, 204, 0.22) !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  background: rgba(10, 23, 36, 0.92) !important;
+  border-bottom-color: rgba(154, 176, 204, 0.16) !important;
+  color: #f8fbff !important;
+  display: block;
+  font-size: 22px;
+  height: 34px;
+  line-height: 31px;
+  text-align: center;
+  text-decoration: none;
+  width: 34px;
+}
+
+.leaflet-control-zoom a:last-child {
+  border-bottom: 0 !important;
+}
+
+.map-top-controls {
+  display: flex;
+  gap: 10px;
+  left: 22px;
+  position: absolute;
+  top: 20px;
+  z-index: 500;
+}
+
+.map-tool-stack {
+  display: grid;
+  gap: 8px;
+  left: 22px;
+  position: absolute;
+  top: 82px;
+  z-index: 500;
+}
+
+.map-tool {
+  align-items: center;
+  background: rgba(11, 23, 36, 0.9);
+  border: 1px solid rgba(154, 176, 204, 0.18);
+  border-radius: var(--radius-sm);
+  color: #fff;
+  display: flex;
+  height: 44px;
+  justify-content: center;
+  width: 44px;
+}
+
+.map-tool.is-active {
+  background: linear-gradient(135deg, rgba(124, 92, 255, 0.96), rgba(68, 101, 218, 0.9));
+}
+
+.map-legend {
+  background: rgba(9, 20, 32, 0.78);
+  border: 1px solid rgba(154, 176, 204, 0.16);
+  border-radius: var(--radius-sm);
+  min-width: 260px;
+  padding: 12px 14px 10px;
+  position: absolute;
+  right: 22px;
+  top: 20px;
+  z-index: 500;
+}
+
+.map-legend strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.map-legend span {
+  background: linear-gradient(90deg, #5b91e7, #4ad391, #f4d62a, #ff8d1c, #ec2e32);
+  border-radius: 999px;
+  display: block;
+  height: 7px;
+}
+
+.map-legend ol {
+  color: #d5deeb;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+}
+
+.route-status {
+  background: rgba(9, 20, 32, 0.88);
+  border: 1px solid rgba(154, 176, 204, 0.18);
+  border-radius: var(--radius-sm);
+  bottom: 18px;
+  color: #e8eef8;
+  left: 22px;
+  min-height: 0;
+  max-width: min(520px, calc(100% - 44px));
+  padding: 10px 12px;
+  pointer-events: none;
+  position: absolute;
+  transform: translateY(80px);
+  transition: transform 160ms ease, opacity 160ms ease;
+  z-index: 500;
+}
+
+.route-status:not(:empty) {
+  transform: translateY(0);
+}
+
+.route-status[data-tone="success"] {
+  border-color: rgba(70, 211, 154, 0.45);
+  color: #b9f6dc;
+}
+
+.route-status[data-tone="warning"] {
+  border-color: rgba(247, 185, 85, 0.5);
+  color: #ffdfa8;
+}
+
+.waypoint-icon,
+.endpoint-icon {
+  align-items: center;
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.32);
+  display: flex;
+  justify-content: center;
+}
+
+.waypoint-icon {
+  background: #ffffff;
+  border: 3px solid #111f31;
+  color: #101b29;
+  font-size: 12px;
+  font-weight: 800;
+  height: 28px;
+  width: 28px;
+}
+
+.endpoint-icon {
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  color: #fff;
+  height: 32px;
+  width: 32px;
+}
+
+.endpoint-icon svg {
+  height: 16px;
+  width: 16px;
+}
+
+.endpoint-icon-start {
+  background: var(--color-success);
+}
+
+.endpoint-icon-finish {
+  background: #161f2e;
+}
+
+@media (max-width: 640px) {
+  .map-panel {
+    min-height: 430px;
+  }
+
+  .route-map {
+    height: 68dvh;
+    min-height: 430px;
+  }
+
+  .map-top-controls {
+    align-items: stretch;
+    left: 12px;
+    right: 12px;
+    top: 12px;
+  }
+
+  .map-top-controls .control-select,
+  .map-top-controls .toggle-control {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .map-tool-stack {
+    left: 12px;
+    top: 70px;
+  }
+
+  .map-legend {
+    left: auto;
+    min-width: 0;
+    right: 12px;
+    top: 70px;
+    width: min(220px, calc(100% - 80px));
+  }
+
+  .map-legend strong {
+    font-size: 12px;
+  }
+
+  .map-legend ol {
+    font-size: 12px;
+  }
+
+  .route-status {
+    bottom: 56px;
+    left: 12px;
+    max-width: calc(100% - 24px);
+  }
+}
+
+@media (max-width: 420px) {
+  .map-legend {
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    top: auto;
+    width: auto;
+  }
+}

@@ -1,56 +1,38 @@
-# Welcome to your Expo app 👋
+# RoutePlanner
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+RoutePlanner is a modular real-map route plotting workspace built as the first slice of a future all-in-one fitness platform.
 
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Run
 
 ```bash
-npm run reset-project
+npm run start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Then open `http://localhost:5173`.
 
-### Other setup steps
+## Checks
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```bash
+npm run check
+```
 
-## Learn more
+## Current Capabilities
 
-To learn more about developing your project with Expo, look at the following resources:
+- Plot routes on OpenStreetMap tiles with Leaflet.
+- Add, drag, undo, clear, and load demo route points.
+- Optionally snap plotted routes through the public OSRM demo routing service, with an offline straight-line fallback.
+- Load real terrain elevation from Open-Elevation for the chart, route metrics, and GPX export.
+- Load route weather from the free Open-Meteo forecast API.
+- Export the current route to GPX.
+- Show distance, elevation gain, estimated time, weather summaries, route surface split, and elevation profile.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Architecture
 
-## Join the community
+- `src/app`: application composition and state orchestration.
+- `src/domain`: fitness and route domain models, metrics, weather, route storage.
+- `src/maps`: Leaflet map adapter. This boundary keeps the rest of the app independent from the map provider.
+- `src/services`: external-facing services such as GPX export and route snapping.
+- `src/ui`: DOM rendering and canvas chart modules.
+- `src/styles`: design tokens, layout, components, map, and chart styles.
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+The code favors small modules with explicit inputs and outputs so the route planner can grow into training, calendar, coaching, nutrition, gear, and analytics areas without turning the map screen into the platform core.

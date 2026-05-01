@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#07111d">
+    <title>RoutePlanner Fitness Platform</title>
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://tile.openstreetmap.org">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIINfQPD0PBHg12cc5lQf6QlMKmMhjxQvqk="
+      crossorigin="">
+    <link rel="stylesheet" href="./src/styles/index.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="RoutePlanner home">
+          <span class="brand-mark" aria-hidden="true">+</span>
+          <span class="brand-name">RoutePlanner</span>
+        </a>
+        <nav class="top-nav" aria-label="Primary">
+          <a href="#">Home</a>
+          <a href="#">Calendar</a>
+          <a class="is-active" href="#">Dashboard</a>
+          <a href="#">ATP</a>
+        </nav>
+        <div class="top-actions">
+          <button class="icon-button" type="button" aria-label="Help">
+            <i data-lucide="circle-help"></i>
+          </button>
+          <button class="icon-button notification-button" type="button" aria-label="Notifications">
+            <i data-lucide="bell"></i>
+            <span class="notification-count">3</span>
+          </button>
+          <div class="profile-chip" aria-label="Current user">
+            <span>HG</span>
+            <strong>Harry Godd</strong>
+            <i data-lucide="chevron-down"></i>
+          </div>
+        </div>
+      </header>
+
+      <aside class="sidebar" aria-label="Route navigation">
+        <section class="sidebar-section">
+          <h2>Routes</h2>
+          <a href="#"><i data-lucide="route"></i>Route Planner</a>
+          <a class="is-active" href="#"><i data-lucide="star"></i>My Routes</a>
+          <a href="#"><i data-lucide="star"></i>Favorites</a>
+          <a href="#"><i data-lucide="folder"></i>Collections</a>
+        </section>
+        <section class="sidebar-section">
+          <h2>Analysis</h2>
+          <a href="#"><i data-lucide="trending-up"></i>Climbs</a>
+          <a href="#"><i data-lucide="waypoints"></i>Segments</a>
+          <a href="#"><i data-lucide="waves"></i>Heatmaps</a>
+        </section>
+        <section class="sidebar-section">
+          <h2>Tools</h2>
+          <a href="#"><i data-lucide="bar-chart-3"></i>Compare Routes</a>
+          <a href="#"><i data-lucide="calendar-plus"></i>Create Event</a>
+        </section>
+        <button id="new-route-button" class="new-route-button" type="button">
+          <i data-lucide="plus"></i>
+          New Route
+        </button>
+      </aside>
+
+      <main class="workspace">
+        <section class="route-header" aria-labelledby="route-title">
+          <div>
+            <div class="route-title-row">
+              <h1 id="route-title">Morning Valley Loop</h1>
+              <button id="rename-route-button" class="icon-button subtle" type="button" aria-label="Rename route">
+                <i data-lucide="pencil"></i>
+              </button>
+            </div>
+            <div class="route-stats" aria-label="Route summary">
+              <span><strong id="distance-stat">0.0 km</strong>Distance</span>
+              <span><strong id="gain-stat">0 m</strong>Elev Gain</span>
+              <span><strong id="time-stat">0:00:00</strong>Est. Time</span>
+            </div>
+          </div>
+          <div class="header-actions">
+            <button id="edit-route-button" class="ghost-button" type="button">
+              <i data-lucide="pen-line"></i>
+              Edit Route
+            </button>
+            <button id="export-gpx-button" class="ghost-button" type="button">
+              <i data-lucide="download"></i>
+              Export GPX
+            </button>
+            <button class="icon-button" type="button" aria-label="More route actions">
+              <i data-lucide="more-horizontal"></i>
+            </button>
+            <button class="ghost-button" type="button">
+              <i data-lucide="share-2"></i>
+              Share
+            </button>
+            <button class="primary-button" type="button">
+              <i data-lucide="radar"></i>
+              Analyze
+            </button>
+          </div>
+        </section>
+
+        <nav class="route-tabs" aria-label="Route analysis tabs">
+          <button type="button">Overview</button>
+          <button class="is-active" type="button">Weather</button>
+          <button type="button">Elevation</button>
+          <button type="button">Segments</button>
+          <button type="button">Climbs</button>
+          <button type="button">Breakdown</button>
+          <button type="button">3D Replay</button>
+        </nav>
+
+        <div class="planner-grid">
+          <div class="planner-primary">
+            <section class="map-panel" aria-label="Interactive route map">
+              <div id="route-map" class="route-map"></div>
+              <div class="map-top-controls">
+                <select id="activity-select" class="control-select" aria-label="Activity type">
+                  <option value="ride">Ride</option>
+                  <option value="run">Run</option>
+                  <option value="hike">Hike</option>
+                </select>
+                <label class="toggle-control">
+                  <input id="snap-toggle" type="checkbox" checked>
+                  <span>Road Snap</span>
+                </label>
+              </div>
+              <div class="map-tool-stack" aria-label="Map tools">
+                <button id="load-demo-button" class="map-tool is-active" type="button" aria-label="Load demo route">
+                  <i data-lucide="shuffle"></i>
+                </button>
+                <button id="undo-point-button" class="map-tool" type="button" aria-label="Undo last point">
+                  <i data-lucide="undo-2"></i>
+                </button>
+                <button id="clear-route-button" class="map-tool" type="button" aria-label="Clear route">
+                  <i data-lucide="trash-2"></i>
+                </button>
+                <button id="fit-route-button" class="map-tool" type="button" aria-label="Fit route">
+                  <i data-lucide="scan"></i>
+                </button>
+              </div>
+              <div class="map-legend" aria-label="Wind speed legend">
+                <strong>Wind Speed (km/h)</strong>
+                <span></span>
+                <ol>
+                  <li>0</li>
+                  <li>15</li>
+                  <li>30</li>
+                  <li>45</li>
+                  <li>60+</li>
+                </ol>
+              </div>
+              <output id="route-status" class="route-status" aria-live="polite"></output>
+            </section>
+
+            <section class="chart-panel" aria-labelledby="profile-title">
+              <div class="chart-header">
+                <div class="segmented-control" role="tablist" aria-label="Profile metric">
+                  <button id="profile-elevation-button" class="is-active" type="button" aria-selected="true">Elevation</button>
+                  <button id="profile-grade-button" type="button" aria-selected="false">Grade</button>
+                </div>
+                <label><input id="show-wind-toggle" type="checkbox" checked>Show Wind</label>
+                <label><input id="show-temp-toggle" type="checkbox" checked>Show Temperature</label>
+                <label><input id="show-precip-toggle" type="checkbox">Show Precipitation</label>
+                <span id="profile-title" class="chart-title">Wind (km/h)</span>
+              </div>
+              <canvas id="elevation-chart" width="1120" height="300"></canvas>
+            </section>
+          </div>
+
+          <aside class="insights-column" aria-label="Route insights">
+            <section class="insight-section" aria-labelledby="weather-route-title">
+              <div class="section-title-row">
+                <h2 id="weather-route-title">Weather on Route</h2>
+                <span class="source-pill">Open-Meteo</span>
+              </div>
+              <div class="time-control">
+                <label for="weather-date-input">Date</label>
+                <input id="weather-date-input" class="date-input" type="date">
+                <label for="weather-time-select">Time</label>
+                <select id="weather-time-select" class="time-select" aria-label="Forecast time"></select>
+                <button id="previous-weather-hour-button" class="icon-button" type="button" aria-label="Previous hour">
+                  <i data-lucide="chevron-left"></i>
+                </button>
+                <button id="next-weather-hour-button" class="icon-button" type="button" aria-label="Next hour">
+                  <i data-lucide="chevron-right"></i>
+                </button>
+              </div>
+              <div id="weather-cards" class="weather-card-grid"></div>
+              <button class="link-button" type="button">
+                View Full Forecast
+                <i data-lucide="chevron-right"></i>
+              </button>
+            </section>
+
+            <section class="insight-section" aria-labelledby="timeline-title">
+              <h2 id="timeline-title">Weather Timeline</h2>
+              <canvas id="weather-chart" width="420" height="190"></canvas>
+            </section>
+
+            <section class="insight-section" aria-labelledby="details-title">
+              <h2 id="details-title">Route Details</h2>
+              <dl id="route-details" class="route-details"></dl>
+              <div id="surface-breakdown" class="surface-breakdown"></div>
+            </section>
+          </aside>
+        </div>
+      </main>
+    </div>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script type="module" src="./src/app/main.js"></script>
+  </body>
+</html>

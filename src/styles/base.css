@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 60% 0%, rgba(24, 160, 251, 0.15), transparent 26rem),
+    linear-gradient(135deg, #06101a 0%, #091722 48%, #0c1823 100%);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  letter-spacing: 0;
+  overflow: hidden;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button,
+select {
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+svg {
+  display: block;
+  height: 18px;
+  width: 18px;
+}
+
+canvas {
+  display: block;
+}
+
+::selection {
+  background: rgba(124, 92, 255, 0.36);
+}

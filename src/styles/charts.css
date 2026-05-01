@@ -1,0 +1,74 @@
+.chart-panel {
+  overflow: hidden;
+}
+
+.chart-header {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  min-height: 54px;
+  padding: 14px 18px 0;
+}
+
+.chart-header label {
+  align-items: center;
+  color: #d6dfed;
+  display: inline-flex;
+  gap: 7px;
+  min-height: 32px;
+}
+
+.segmented-control {
+  align-items: center;
+  background: rgba(8, 18, 29, 0.72);
+  border: 1px solid rgba(154, 176, 204, 0.18);
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  min-height: 34px;
+  padding: 3px;
+}
+
+.segmented-control button {
+  background: transparent;
+  border: 0;
+  border-radius: 5px;
+  color: var(--color-text-muted);
+  min-width: 72px;
+  padding: 6px 11px;
+}
+
+.segmented-control button.is-active {
+  background: linear-gradient(135deg, rgba(124, 92, 255, 0.72), rgba(71, 85, 200, 0.38));
+  color: #fff;
+}
+
+.chart-title {
+  color: var(--color-text-muted);
+  margin-left: auto;
+}
+
+#elevation-chart {
+  height: 300px;
+  width: 100%;
+}
+
+#weather-chart {
+  height: 190px;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .chart-header {
+    gap: 10px;
+  }
+
+  .chart-title {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+
+  #elevation-chart {
+    height: 260px;
+  }
+}

@@ -1,6 +1,7 @@
 # RoutePlanner
 
 RoutePlanner is a modular real-map route plotting workspace built as the first slice of a future all-in-one fitness platform.
+This was messing around with using google antigravity for coding.
 
 ## Run
 
